@@ -4,7 +4,7 @@
 
    License:
 
-   Authors:
+   Authors: Jonathan Wolfe - February 2015
 
 ************************************************************************ */
 
@@ -50,7 +50,7 @@ qx.Class.define("gardenplanner.Application",
         Below is your actual application code...
       -------------------------------------------------------------------------
       */
-      var mainContainer = new qx.ui.container.Composite(new qx.ui.layout.VBox());
+      var mainContainer = new qx.ui.container.Composite(new qx.ui.layout.VBox(10));
       var controlsContainer = new qx.ui.container.Composite(new qx.ui.layout.HBox(10));
       mainContainer.setMargin(20);
       controlsContainer.add(new qx.ui.basic.Label('<b>Select Your Last Freeze Date:</b>').set(
@@ -59,9 +59,11 @@ qx.Class.define("gardenplanner.Application",
         font : new qx.bom.Font(20),
         textColor : "rgb(0, 105, 207)"
       }));
+
+      // Initialize the datefield with a reasonable date
       var year = new Date().getFullYear();
       var dateField = new qx.ui.form.DateField();
-      dateField.setValue(new Date(year, 03, 25));
+      dateField.setValue(new Date(year, 03, 1));
       dateField.addListener("changeValue", function(e)
       {
         var lastFrostDate = e.getData();
@@ -77,31 +79,46 @@ qx.Class.define("gardenplanner.Application",
         this.plotMe("cal4", lastFrostDate, weeks);
       }, this);
       controlsContainer.add(dateField);
+
+      // Make the html container
       var htmlDiv = new qx.ui.embed.Html('<div id="main"></div>').set(
       {
         minHeight : 800,
-        minWidth : 800,
+        minWidth : 1200,
         paddingTop : 20
       });
       htmlDiv.setOverflow("auto", "auto");
+
+      // A button to start over...
       var startOver = new qx.ui.form.Button("Start Over");
-      startOver.addListener("execute", function() {
+      startOver.addListener("execute", function()
+      {
         htmlDiv.resetHtml();
         htmlDiv.setHtml('<div id="main"></div>');
       });
       controlsContainer.add(startOver);
       mainContainer.add(controlsContainer);
+      mainContainer.add(new qx.ui.basic.Label('<b>After you select a date, calendars will appear below highlighting the periods when you should plant seeds inside before a frost date. <br>The red box is today\'s date while the black one is your selected date.</b>').set(
+      {
+        rich : true,
+        font : new qx.bom.Font(14),
+        textColor : "rgb(58, 160, 67)"
+      }));
       mainContainer.add(htmlDiv, {
         flex : 1
       });
       this.getRoot().add(mainContainer);
     },
+
+    /**
+    Plot the data - this could be written a lot better, but I just wanted to get something working before this springs seed season...
+    */
     plotMe : function(id, lastFrostDate, weeks)
     {
       var data = [
       {
         "label" : "cal",
-        "text" : "10-12 weeks <img src='https://pbs.twimg.com/profile_images/429072172200390656/a0LbiXxg_normal.jpeg'><img src='http://vignette1.wikia.nocookie.net/chefville/images/1/15/Ingredient-Wild_Onion.png/revision/latest/scale-to-width/40?cb=20121106205432'>",
+        "text" : "10-12 weeks",  // <img src='https://pbs.twimg.com/profile_images/429072172200390656/a0LbiXxg_normal.jpeg'><img src='http://vignette1.wikia.nocookie.net/chefville/images/1/15/Ingredient-Wild_Onion.png/revision/latest/scale-to-width/40?cb=20121106205432'>
         "img" : ""
       },
       {
@@ -124,21 +141,27 @@ qx.Class.define("gardenplanner.Application",
         "text" : "2-4 weeks",
         "img" : "sugar.jpg"
       }];
+
+      // Make a div
       var diventer = d3.select("#main").selectAll("div").data(data).enter().append("div").attr("id", function(d) {
         return d.label;
       }).attr("class", 'graphs');
       diventer.append("p").html(function(d) {
-        return d.text;
+        return "<b>" + d.text + "</b>";
       });
+
+      // Make the data object
       var datas = [];
       var x = d3.range(0, (weeks[1] - weeks[0]) * 7);
       x.forEach(function(obj) {
         datas.push(
         {
-          date : parseInt(lastFrostDate.getTime() / 1000) - weeks[1] * 7 * 86400 + 86400 * obj,
-          value : 10  //obj
+          date : parseInt(lastFrostDate.getTime() / 1000) - weeks[1] * 7 * 86400 + 86400 * obj,  // <---- go back the number of weeks from the selected date
+          value : 10  // just chose ten for a nice lime green color
         });
       });
+
+      // Calendar data parser
       var parser = function(data)
       {
         var stats = {
@@ -149,6 +172,10 @@ qx.Class.define("gardenplanner.Application",
         }
         return stats;
       };
+
+      /**
+      Make the calendar
+      */
       var cal = new CalHeatMap();
       cal.init(
       {
@@ -156,7 +183,7 @@ qx.Class.define("gardenplanner.Application",
         start : new Date(2015, 0),
         domain : "month",
         subDomain : "x_day",
-        cellSize : 15,
+        cellSize : 20,
         subDomainTextFormat : "%e",
         range : 6,
         displayLegend : false,
