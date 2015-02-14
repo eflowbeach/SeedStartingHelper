@@ -53,7 +53,8 @@ qx.Class.define("gardenplanner.Application",
       var mainContainer = new qx.ui.container.Composite(new qx.ui.layout.VBox(10));
       var controlsContainer = new qx.ui.container.Composite(new qx.ui.layout.HBox(10));
       mainContainer.setMargin(20);
-      controlsContainer.add(new qx.ui.basic.Label('<b>Select Your Last Frost/Freeze Date:</b>').set(
+      mainContainer.setMaxWidth(650);
+      controlsContainer.add(new qx.ui.basic.Label('<b>Your Last Frost/Freeze Date:</b>').set(
       {
         rich : true,
         font : new qx.bom.Font(20),
@@ -85,6 +86,7 @@ qx.Class.define("gardenplanner.Application",
       {
         minHeight : 800,
         minWidth : 650,
+        maxWidth:650,
         paddingTop : 20
       });
       htmlDiv.setOverflow("auto", "auto");
@@ -103,7 +105,7 @@ qx.Class.define("gardenplanner.Application",
       });
       controlsContainer.add(findLastFrost);
       mainContainer.add(controlsContainer);
-      mainContainer.add(new qx.ui.basic.Label('<b>After you select a date, calendars will appear with highlighted periods showing you when to plant your seeds in <font style="color:#DAE289;text-shadow: 2px 2px 8px #000000;"> light green</font>. <br>The <font style="color:red;text-shadow: 2px 2px 8px #FFFFFF;">red box</font> is today\'s date while the <font style="color:black;">black box</font> is your selected date.</b>').set(
+      mainContainer.add(new qx.ui.basic.Label('<b>After you select a date, calendars will appear highlighting  optimum dates to plant your seeds.<br>The <font style="color:red;text-shadow: 2px 2px 8px #FFFFFF;">red box</font> is today\'s date while the <font style="color:black;">black box</font> is your selected date.</b>').set(
       {
         rich : true,
         font : new qx.bom.Font(14),
@@ -125,6 +127,7 @@ qx.Class.define("gardenplanner.Application",
         "label" : "cal",
         "text" : "10-12 weeks <img style='width:24px;height:24px;'src='resource/gardenplanner/images/celery.png'><img style='width:24px;height:24px;'src='resource/gardenplanner/images/onion.png'>",
         "img" : ""
+
       },
       {
         "label" : "cal1",
