@@ -20,7 +20,7 @@ qx.$$g = {}
 
 qx.$$loader = {
   parts : {"boot":[0]},
-  packages : {"0":{"uris":["__out__:gardenplanner.4113e8ee35f9.js","gardenplanner:gardenplanner/Application.js","__out__:gardenplanner.24f846985c54.js","gardenplanner:gardenplanner/theme/Color.js","__out__:gardenplanner.3ccdc577626d.js","gardenplanner:gardenplanner/theme/Decoration.js","__out__:gardenplanner.b821ba4003b9.js","gardenplanner:gardenplanner/theme/Appearance.js","__out__:gardenplanner.38c4a3d0a696.js","gardenplanner:gardenplanner/theme/Font.js","gardenplanner:gardenplanner/theme/Theme.js"]}},
+  packages : {"0":{"uris":["__out__:gardenplanner.f661ecc0a965.js","gardenplanner:gardenplanner/Application.js","__out__:gardenplanner.24f846985c54.js","gardenplanner:gardenplanner/theme/Color.js","__out__:gardenplanner.3ccdc577626d.js","gardenplanner:gardenplanner/theme/Decoration.js","__out__:gardenplanner.b821ba4003b9.js","gardenplanner:gardenplanner/theme/Appearance.js","__out__:gardenplanner.38c4a3d0a696.js","gardenplanner:gardenplanner/theme/Font.js","gardenplanner:gardenplanner/theme/Theme.js"]}},
   urisBefore : [],
   cssBefore : [],
   boot : "boot",

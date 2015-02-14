@@ -53,7 +53,7 @@ qx.Class.define("gardenplanner.Application",
       var mainContainer = new qx.ui.container.Composite(new qx.ui.layout.VBox(10));
       var controlsContainer = new qx.ui.container.Composite(new qx.ui.layout.HBox(10));
       mainContainer.setMargin(20);
-      controlsContainer.add(new qx.ui.basic.Label('<b>Select Your Last Freeze Date:</b>').set(
+      controlsContainer.add(new qx.ui.basic.Label('<b>Select Your Last Frost/Freeze Date:</b>').set(
       {
         rich : true,
         font : new qx.bom.Font(20),
@@ -84,7 +84,7 @@ qx.Class.define("gardenplanner.Application",
       var htmlDiv = new qx.ui.embed.Html('<div id="main"></div>').set(
       {
         minHeight : 800,
-        minWidth : 1200,
+        minWidth : 650,
         paddingTop : 20
       });
       htmlDiv.setOverflow("auto", "auto");
@@ -97,8 +97,13 @@ qx.Class.define("gardenplanner.Application",
         htmlDiv.setHtml('<div id="main"></div>');
       });
       controlsContainer.add(startOver);
+      var findLastFrost = new qx.ui.form.Button("Find Your Last Freeze Date");
+      findLastFrost.addListener("execute", function() {
+        window.open("https://www.ncdc.noaa.gov/cgi-bin/climatenormals/climatenormals.pl?directive=prod_select2&prodtype=CLIM2001&subrnum%2520to%2520Freeze/Frost%2520Data%2520from%2520the%2520U.S.%2520Climate%2520Normals");
+      });
+      controlsContainer.add(findLastFrost);
       mainContainer.add(controlsContainer);
-      mainContainer.add(new qx.ui.basic.Label('<b>After you select a date, calendars will appear below highlighting the periods when you should plant seeds inside before a frost date. <br>The red box is today\'s date while the black one is your selected date.</b>').set(
+      mainContainer.add(new qx.ui.basic.Label('<b>After you select a date, calendars will appear with highlighted periods showing you when to plant your seeds in <font style="color:#DAE289;text-shadow: 2px 2px 8px #000000;"> light green</font>. <br>The <font style="color:red;text-shadow: 2px 2px 8px #FFFFFF;">red box</font> is today\'s date while the <font style="color:black;">black box</font> is your selected date.</b>').set(
       {
         rich : true,
         font : new qx.bom.Font(14),
@@ -118,7 +123,7 @@ qx.Class.define("gardenplanner.Application",
       var data = [
       {
         "label" : "cal",
-        "text" : "10-12 weeks",  // <img src='https://pbs.twimg.com/profile_images/429072172200390656/a0LbiXxg_normal.jpeg'><img src='http://vignette1.wikia.nocookie.net/chefville/images/1/15/Ingredient-Wild_Onion.png/revision/latest/scale-to-width/40?cb=20121106205432'>
+        "text" : "10-12 weeks <img style='width:24px;height:24px;'src='resource/gardenplanner/images/celery.png'><img style='width:24px;height:24px;'src='resource/gardenplanner/images/onion.png'>",
         "img" : ""
       },
       {
@@ -128,7 +133,7 @@ qx.Class.define("gardenplanner.Application",
       },
       {
         "label" : "cal2",
-        "text" : "6-8 weeks",
+        "text" : "6-8 weeks <img style='width:24px;height:24px;'src='resource/gardenplanner/images/tomato.png'><img style='width:24px;height:24px;'src='resource/gardenplanner/images/pepper.png'>",
         "img" : "sugar.jpg"
       },
       {
@@ -138,7 +143,7 @@ qx.Class.define("gardenplanner.Application",
       },
       {
         "label" : "cal4",
-        "text" : "2-4 weeks",
+        "text" : "2-4 weeks <img style='width:24px;height:24px;'src='resource/gardenplanner/images/watermelon.png'>",
         "img" : "sugar.jpg"
       }];
 
@@ -147,7 +152,7 @@ qx.Class.define("gardenplanner.Application",
         return d.label;
       }).attr("class", 'graphs');
       diventer.append("p").html(function(d) {
-        return "<b>" + d.text + "</b>";
+        return "<b style='font-size: 2.1em;'>" + d.text + " </b>";
       });
 
       // Make the data object
@@ -187,6 +192,14 @@ qx.Class.define("gardenplanner.Application",
         subDomainTextFormat : "%e",
         range : 6,
         displayLegend : false,
+        domainGutter : 10,
+        subDomainTitleFormat :
+        {
+          "empty" : "Don't plant on {date}",
+          "filled" : "{date} is a good day to plant your seeds!"
+        },
+
+        //	tooltip: true,
         data : datas,
         afterLoadData : parser,
         dataType : "json",

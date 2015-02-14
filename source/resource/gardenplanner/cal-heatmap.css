@@ -11,8 +11,12 @@
 
 .cal-heatmap-container .graph-label
 {
-	fill: #999;
+	/*fill: #999;
 	font-size: 10px
+	*/
+	fill: #909090;
+    font-size: 17px;
+    font-weight: bold;
 }
 
 .cal-heatmap-container .graph, .cal-heatmap-container .graph-legend rect {
@@ -32,7 +36,7 @@
 
 .cal-heatmap-container .subdomain-text {
 	font-size: 8px;
-	fill: #999;
+	fill: #000;
 	pointer-events: none
 }
 
