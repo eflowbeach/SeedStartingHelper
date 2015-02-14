@@ -52,7 +52,7 @@ qx.Class.define("gardenplanner.Application",
       */
       var mainContainer = new qx.ui.container.Composite(new qx.ui.layout.VBox(10));
       var controlsContainer = new qx.ui.container.Composite(new qx.ui.layout.HBox(10));
-      mainContainer.setMargin(20);
+      mainContainer.setMargin(5);
       mainContainer.setMaxWidth(650);
       controlsContainer.setMaxWidth(650);
       controlsContainer.add(new qx.ui.basic.Label('<b>Your Last Frost/Freeze Date:</b>').set(
