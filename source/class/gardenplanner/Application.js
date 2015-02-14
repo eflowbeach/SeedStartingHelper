@@ -54,6 +54,7 @@ qx.Class.define("gardenplanner.Application",
       var controlsContainer = new qx.ui.container.Composite(new qx.ui.layout.HBox(10));
       mainContainer.setMargin(20);
       mainContainer.setMaxWidth(650);
+      controlsContainer.setMaxWidth(650);
       controlsContainer.add(new qx.ui.basic.Label('<b>Your Last Frost/Freeze Date:</b>').set(
       {
         rich : true,
@@ -64,6 +65,7 @@ qx.Class.define("gardenplanner.Application",
       // Initialize the datefield with a reasonable date
       var year = new Date().getFullYear();
       var dateField = new qx.ui.form.DateField();
+      dateField.set({maxWidth:105});
       dateField.setValue(new Date(year, 03, 1));
       dateField.addListener("changeValue", function(e)
       {
@@ -85,6 +87,7 @@ qx.Class.define("gardenplanner.Application",
       var htmlDiv = new qx.ui.embed.Html('<div id="main"></div>').set(
       {
         minHeight : 800,
+        maxHeight : 800,
         minWidth : 650,
         maxWidth:650,
         paddingTop : 20
@@ -92,7 +95,7 @@ qx.Class.define("gardenplanner.Application",
       htmlDiv.setOverflow("auto", "auto");
 
       // A button to start over...
-      var startOver = new qx.ui.form.Button("Start Over");
+      var startOver = new qx.ui.form.Button("Clear");
       startOver.addListener("execute", function()
       {
         htmlDiv.resetHtml();
