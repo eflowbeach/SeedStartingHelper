@@ -42,7 +42,7 @@
   "let" :
   {
     "APPLICATION"  : "gardenplanner",
-    "QOOXDOO_PATH" : "../mwp/trunk/libs/qooxdoo-4.1-sdk",
+    "QOOXDOO_PATH" : "../edd/libs/qooxdoo-5.0-sdk",
     "QXTHEME"      : "gardenplanner.theme.Theme",
     "API_EXCLUDE"  : ["qx.test.*", "${APPLICATION}.theme.*", "${APPLICATION}.test.*"],
     "LOCALES"      : [ "en" ],

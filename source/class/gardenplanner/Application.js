@@ -66,7 +66,6 @@ qx.Class.define("gardenplanner.Application",
       var year = new Date().getFullYear();
       var dateField = new qx.ui.form.DateField();
       dateField.set({maxWidth:105});
-      dateField.setValue(new Date(year, 03, 1));
       dateField.addListener("changeValue", function(e)
       {
         var lastFrostDate = e.getData();
@@ -81,6 +80,9 @@ qx.Class.define("gardenplanner.Application",
         var weeks = [2, 4];
         this.plotMe("cal4", lastFrostDate, weeks);
       }, this);
+      setTimeout(function(){
+        dateField.setValue(new Date(year, 03, 15));
+      }, 1000)
       controlsContainer.add(dateField);
 
       // Make the html container
@@ -134,12 +136,12 @@ qx.Class.define("gardenplanner.Application",
       },
       {
         "label" : "cal1",
-        "text" : "8-10 weeks",
+        "text" : "8-10 weeks <img style='width:24px;height:24px;'src='resource/gardenplanner/images/pepper.png'>",
         "img" : "sugar.jpg"
       },
       {
         "label" : "cal2",
-        "text" : "6-8 weeks <img style='width:24px;height:24px;'src='resource/gardenplanner/images/tomato.png'><img style='width:24px;height:24px;'src='resource/gardenplanner/images/pepper.png'>",
+        "text" : "6-8 weeks <img style='width:24px;height:24px;'src='resource/gardenplanner/images/tomato.png'>",
         "img" : "sugar.jpg"
       },
       {
@@ -191,7 +193,7 @@ qx.Class.define("gardenplanner.Application",
       cal.init(
       {
         itemSelector : "#" + id,
-        start : new Date(2015, 0),
+        start : new Date(new Date().getFullYear(), 0), //new Date(), //new Date(2015, 0),
         domain : "month",
         subDomain : "x_day",
         cellSize : 20,
